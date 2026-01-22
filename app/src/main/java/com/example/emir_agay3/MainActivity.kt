@@ -1,12 +1,12 @@
 package com.example.emir_agay3
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,19 +21,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.Alignment
 import androidx.compose.material3.Button
+import androidx.compose.runtime.mutableIntStateOf
 
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             Emir_agay3Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold(modifier = Modifier.fillMaxSize()) {
+                    Greeting()
                 }
             }
         }
@@ -41,12 +40,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    var count by remember { mutableStateOf(0) }
-    var count2 by remember { mutableStateOf(0) }
-    var count3 by remember { mutableStateOf(0) }
+fun Greeting() {
+    var count by remember { mutableIntStateOf(0) }
+    var count2 by remember { mutableIntStateOf(0) }
+    var count3 by remember { mutableIntStateOf(0) }
     var last by remember { mutableStateOf("None") }
-    //
     Row(
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -65,20 +63,20 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             Text(text = "Last button: $last")
         }
 
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "count3: $count3!")
-                Button(onClick = { count3++; last = "Add3" }) {
-                    Text("Add3")
-                }
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(text = "count3: $count3!")
+            Button(onClick = { count3++; last = "Add3" }) {
+                Text("Add3")
             }
         }
     }
+}
 
 
-    @Preview(showBackground = true)
-    @Composable
-    fun GreetingPreview() {
-        Emir_agay3Theme {
-            Greeting("Android")
-        }
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    Emir_agay3Theme {
+        Greeting()
     }
+}
